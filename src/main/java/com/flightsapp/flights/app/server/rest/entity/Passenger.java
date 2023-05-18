@@ -19,16 +19,7 @@ public class Passenger {
     private String title;
     private String firstName;
     private String lastName;
-    private String seatNumber;
-    @Column(unique = true)
-    private Long passportId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(
-            name = "reservation_id",
-            referencedColumnName = "reservationId"
-    )
-    private Reservation reservation;
-
-
+    private String departureSeatNumber;
+    private String returnSeatNumber;
+    private String passportId;
 }

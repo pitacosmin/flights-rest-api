@@ -57,6 +57,15 @@ public class FlightController {
         return ResponseEntity.ok(flights);
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Optional<Flight>> findById(
+            @PathVariable Long id
+    ) {
+        Optional<Flight> flight = flightRepository.findById(id);
+
+        return ResponseEntity.ok(flight);
+    }
+
     @PostMapping(path = "/admin/populateTable")
     public void populateTable() {
         Flight.FlightBuilder flightBuilder = Flight.builder();

@@ -8,7 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,7 +21,7 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
-    private LocalDate registeredAt;
+    private LocalDateTime registeredAt;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "user_id",
@@ -30,10 +31,25 @@ public class Reservation {
 
     private Float totalPrice;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            name="flight_id",
+            name="departure_flight_id",
             referencedColumnName = "flightId"
     )
-    private Flight flight;
+    private Flight departureFlight;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name="return_flight_id",
+            referencedColumnName = "flightId"
+    )
+    private Flight returnFlight;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "reservation_id",
+            referencedColumnName = "reservationId"
+    )
+    private List<Passenger> passengers;
+
 }

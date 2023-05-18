@@ -6,8 +6,8 @@ import java.util.Date;
 
 @Data
 public class FlightDTO {
-    private String departureTicket;
-    private String returnTicket;
+    private Long departureTicket;
+    private Long returnTicket;
     private Long departurePrice;
     private Long returnPrice;
     private String origin;
