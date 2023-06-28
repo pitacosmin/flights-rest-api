@@ -31,14 +31,14 @@ public class Reservation {
 
     private Float totalPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name="departure_flight_id",
             referencedColumnName = "flightId"
     )
     private Flight departureFlight;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name="return_flight_id",
             referencedColumnName = "flightId"

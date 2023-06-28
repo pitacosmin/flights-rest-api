@@ -22,6 +22,8 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/demo-controller/**").authenticated()
+                .requestMatchers("/reservation/**").authenticated()
+                .requestMatchers("/seats/**").authenticated()
                 .requestMatchers("/*/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/**").permitAll()
                 .and()
@@ -29,7 +31,8 @@ public class SecurityConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors();
 
         return httpSecurity.build();
     }

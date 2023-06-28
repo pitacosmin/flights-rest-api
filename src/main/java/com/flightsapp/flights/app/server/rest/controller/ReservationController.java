@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/reservation")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class ReservationController {
 
     @Autowired
@@ -39,4 +39,14 @@ public class ReservationController {
         return ResponseEntity.ok(reservation);
     }
 
+    @GetMapping(path = "/history")
+    public ResponseEntity<List<Reservation>> getReservation(
+            @CookieValue("accessToken") String accessToken
+    ) {
+        List<Reservation> reservations = reservationService.getReservations(
+                accessToken
+        );
+
+        return ResponseEntity.ok(reservations);
+    }
 }

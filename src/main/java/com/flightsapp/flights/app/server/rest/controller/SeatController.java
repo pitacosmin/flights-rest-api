@@ -12,7 +12,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping(path = "/seats")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class SeatController {
 
     @Autowired

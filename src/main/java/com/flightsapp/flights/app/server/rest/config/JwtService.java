@@ -21,6 +21,7 @@ public class JwtService {
 
     private static final String SECRET_KEY = "34743777217A25432A462D4A614E635266556A586E3272357538782F413F4428";
     private static final long ACCESS_TOKEN_VALIDITY_SECONDS = 1000 * 60 * 12; // 12 minutes
+//    private static final long ACCESS_TOKEN_VALIDITY_SECONDS = 1000 * 10 * 1; // 1 min ONLY FOR TESTING
     private static final long REFRESH_TOKEN_VALIDITY_SECONDS = 1000 * 60 * 60 * 24 * 7; // 7 days
 
     public String extractUsername(String token) {

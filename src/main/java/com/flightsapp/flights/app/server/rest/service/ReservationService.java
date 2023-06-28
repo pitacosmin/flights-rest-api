@@ -2,6 +2,7 @@ package com.flightsapp.flights.app.server.rest.service;
 
 import com.flightsapp.flights.app.server.rest.DTO.FlightDTO;
 import com.flightsapp.flights.app.server.rest.DTO.PassengerDTO;
+import com.flightsapp.flights.app.server.rest.config.JwtService;
 import com.flightsapp.flights.app.server.rest.entity.Flight;
 import com.flightsapp.flights.app.server.rest.entity.Passenger;
 import com.flightsapp.flights.app.server.rest.entity.Reservation;
@@ -37,6 +38,8 @@ public class ReservationService {
     UserRepository userRepository;
     @Autowired
     PassenerRepository passenerRepository;
+    @Autowired
+    JwtService jwtService;
 
     public Reservation createReservation(String email, Float price, FlightDTO flightDTO, List<PassengerDTO> passengerDTO) {
 
@@ -102,5 +105,15 @@ public class ReservationService {
         Reservation reservation = reservationBuilder.build();
         reservationRepository.save(reservation);
         return reservation;
+    }
+
+    public List<Reservation> getReservations(String accessToken) {
+        String email = jwtService.extractUsername(accessToken);
+        System.out.println("email = " + email);
+
+        AppUser user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+        List<Reservation> reservations = reservationRepository.findReservationsByUserId(user.getId());
+
+        return reservations;
     }
 }
